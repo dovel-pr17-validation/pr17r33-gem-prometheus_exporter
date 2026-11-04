@@ -1,0 +1,11 @@
+ARG RUBY_VERSION=3.4
+ARG GEM_VERSION=
+
+FROM ruby:${RUBY_VERSION}-slim
+
+RUN apt update && apt install -y curl
+
+RUN gem install --no-doc --version=${GEM_VERSION} prometheus_exporter
+
+EXPOSE 9394
+ENTRYPOINT ["prometheus_exporter", "-b", "ANY"]
